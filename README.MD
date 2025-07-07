@@ -1,43 +1,36 @@
-# terminal.todo — A Beginner's TODO App in Go
+# 📝 Terminal TODO App (Built with Go)
 
-A simple terminal-based TODO list manager built in Go.  
-This project was created as a fun way to explore **Go structs**, **file operations**, and **basic CLI interaction**.
+A simple command-line TODO list manager written in Go.  
+Features persistent storage, task completion toggling, deletion, and SHA-256 based change detection.
 
----
-
-## Features
-
-- Add TODO items
-- Mark TODOs as complete/incomplete
-- Delete TODOs
-- Automatically saves your list to `~/.TODO.txt`
-- Uses basic file read/write and SHA-256 hashing to detect changes
+> **Built completely from scratch — no external libraries, no AI assistance.**
 
 ---
 
-## What I’m Trying to Learning
+## 📦 Features
 
-This project is part of my journey to learn Go.  
-Specifically, I wanted to get comfortable with:
-
-- Defining and using `struct`s
-- Writing and reading from files
-- Using slices to manage dynamic lists
-- Building a terminal menu interface
-- Using Go’s `bufio`, `os`, `fmt`, and `crypto/sha256` packages
+- ✅ Add, complete, and delete TODOs
+- 💾 Persists tasks in a hidden file (`~/.TODO.txt`)
+- 🔐 Uses SHA-256 hashing to detect changes before saving
+- 🧹 Clean terminal UI
+- 🏗️ Modular Go package structure (`todo` package)
 
 ---
 
-## How to Run
+## 🚀 Installation & Run
 
-### 1. Clone the repository
-
+### Clone the Repo
 ```bash
-git clone https://github.com/mindslayer001/terminal.todo.git
+git clone https://github.com/yourusername/terminal.todo.git
 cd terminal.todo
 ```
 
-### 2. Run the app
+### Initialize Go Module (if not already)
+
+```bash
+go mod tidy
+```
+### Build & Run
 
 ```bash
 go run main.go
@@ -45,73 +38,67 @@ go run main.go
 
 ---
 
-## File Structure
+## 🖥️ Screenshot
 
+> **Will be coming soon**
+
+## 📁 File Format (`~/.TODO.txt`)
+
+Each TODO item is saved in a `|`-separated format:
+
+```bash
+Learn Go concurrency|false
+Finish README|true
+Refactor the write logic|false
 ```
-terminal.todo/
-├── TODO/             # Package containing the TODO logic
-│   └── todo.go
-├── main.go           # Entry point with CLI logic
-├── go.mod
-└── README.md         # You are here :)
-```
+
+* First column: TODO title
+* Second column: Completion status (`true` or `false`)
 
 ---
 
-## Data File
+## 🔐 How Hashing Works
 
-All TODOs are saved in your home directory as:
+Before saving, the app checks if the in-memory TODO list has changed by hashing it using SHA-256:
 
-```
-~/.TODO.txt
+```go
+data, _ := json.Marshal(T.TODOS)
+hash := sha256.Sum256(data)
 ```
 
-Each item is stored in this format:
-
-```
-Title|true
-Title 2|false
-```
+If the hash differs from the previously loaded state, it writes the updated list to the file.
+This prevents unnecessary writes and provides a simple "dirty state" check.
 
 ---
 
-## Sample Usage
+## 🛠️ TODO (Future Features)
 
-```
-*************************TODO*************************
-1 [ ] Learn Go
-2 [✅] Build a CLI
-Choose from below options
-1 Create New todo
-2 Change the Status of a certain todo
-3 Delete the todo
-4 Exit
-```
+* [ ] Add CLI flags for quick actions (`todo add "Task"`)
+* [ ] Export to JSON/CSV
+* [ ] Color-coded output using `fatih/color`
+* [ ] Cobra integration for subcommands
 
 ---
 
-## Credits
+## 🤝 Contribution
 
-This is a personal project built by a beginner learning Go.
-If you're also learning and want to collaborate or ask questions, feel free to reach out!
-
----
-
-## Goals for the Future
-
-* [ ] Save TODOs in JSON format
-* [ ] Add due dates to tasks
-* [ ] Support editing existing TODOs
-* [ ] Improve UI with colors using a popular library (Still Not Selected)
+This was built as a personal project, but feel free to fork and extend it.
+Suggestions and issues are welcome!
 
 ---
 
-## Inspiration
+## 📍 Author
 
-Learning by building — nothing fancy, just getting hands-on with Go's core features!
+**Mani Sankar Chintagunti**
+Backend Developer | OSS Contributor
+Portfolio: [@mindslayer001.in](https://mindslayer001.in)
+GitHub: [@mindslayer001](https://github.com/mindslayer001)
+X: [@ismycodeshit](https://x.com/ismycodeshit)
 
 ---
 
-## Go Version
+## 📄 License
 
-Tested with: `go1.22+`
+MIT License – see file for details. 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+ 
