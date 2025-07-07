@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	tem "github.com/mindslayer001/terminal.todo/TODO"
+	tem "github.com/mindslayer001/terminal.todo/Todo"
 )
 
 func main() {
@@ -14,7 +14,7 @@ func main() {
 	for {
 		T.PrintTODO()
 		printChoices()
-		var choice int = 0
+		var choice int
 		fmt.Scanln(&choice)
 		switch choice {
 		case 1:

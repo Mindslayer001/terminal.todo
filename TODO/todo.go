@@ -1,4 +1,4 @@
-package TODO
+package Todo
 
 import (
 	"crypto/sha256"
@@ -10,8 +10,10 @@ import (
 	"strings"
 )
 
-var Path string
-var old TODOList
+var (
+	Path string
+	old  TODOList
+)
 
 func init() {
 	homeDir, _ := os.UserHomeDir()
@@ -47,7 +49,6 @@ func (T *TODOList) CreateTODO(Tile string, status bool) {
 }
 
 func (T *TODOList) LoadTODO() {
-
 	data, err := os.ReadFile(Path)
 	if err != nil {
 		log.Fatal(err)
@@ -75,7 +76,7 @@ func (T *TODOList) writeTODO() {
 		}
 		content.WriteString(fmt.Sprintf("\n%s|%s|", todo.TODOTitle, Status))
 	}
-	err := os.WriteFile(Path, []byte(content.String()), 0644)
+	err := os.WriteFile(Path, []byte(content.String()), 0o644)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -110,6 +111,7 @@ func (T *TODOList) Hash() [32]byte {
 	hashByte := sha256.Sum256(data)
 	return hashByte
 }
+
 func (T *TODOList) Complete(index int) {
 	T.TODOS[(index - 1)].IsCompleted = !T.TODOS[(index - 1)].IsCompleted
 }
